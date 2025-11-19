@@ -3,51 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Descubrí tu perfil de burnout con nuestro quiz interactivo. Un experimento colectivo de bienestar para profesionales +30/35 que buscan autoconocimiento y herramientas prácticas.">
-    <meta name="keywords" content="burnout, agotamiento laboral, bienestar, salud mental, profesionales, autoconocimiento, quiz burnout">
-    <meta name="author" content="Burnout Invisible">
-    <meta name="theme-color" content="#A6988D">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://burnoutinvisible.com/">
-    <meta property="og:title" content="Burnout (in)visible - Experimento Colectivo de Bienestar">
-    <meta property="og:description" content="Descubrí tu perfil de burnout y conectá con una comunidad que transforma la experiencia personal en conocimiento útil.">
-    <meta property="og:image" content="https://burnoutinvisible.com/og-image.jpg">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://burnoutinvisible.com/">
-    <meta property="twitter:title" content="Burnout (in)visible - Experimento Colectivo de Bienestar">
-    <meta property="twitter:description" content="Descubrí tu perfil de burnout y conectá con una comunidad que transforma la experiencia personal en conocimiento útil.">
-    <meta property="twitter:image" content="https://burnoutinvisible.com/twitter-image.jpg">
-
-    <title>Burnout (in)visible: un experimento colectivo de bienestar</title>
-    
-    <!-- Preconnect for performance -->
+    <title>Burnout (in)visible</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://burnoutinvisible.com/">
-    
-    <!-- Structured Data for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Burnout (in)visible",
-      "url": "https://burnoutinvisible.com",
-      "description": "Un experimento colectivo de bienestar para profesionales que buscan autoconocimiento",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://burnoutinvisible.com/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -55,54 +14,72 @@
             box-sizing: border-box;
         }
 
-        :root {
-            /* Paleta Wabi-Sabi refinada según referencias */
-            --color-rust: #C85A3C;
-            --color-young-rust: #E67350;
-            --color-off-white: #EFE8DC;
-            --color-baby-blue: #A9BCE3;
-            --color-black: #2C1810;
-            --color-fresh-yellow: #F5E5A0;
-            --color-base: #D4C5B5;
-            --color-earth: #3A2D25;
-            --color-accent: #FF6347;
-            --color-calm: #54795B;
-        }
-
-        html {
-            cursor: none;
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--color-base);
-            color: var(--color-earth);
+            background-color: #D4C5B3;
+            color: #3A2D25;
             line-height: 1.6;
-            min-height: 100vh;
             overflow-x: hidden;
             cursor: none;
-            position: relative;
         }
 
-        /* ====== LOADER ====== */
+        h1, h2, h3 {
+            font-family: 'Libre Baskerville', serif;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        h3 {
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #B8704D;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+        }
+
+        .custom-cursor.hover {
+            width: 40px;
+            height: 40px;
+            background: rgba(184, 112, 77, 0.2);
+            border-color: #B8704D;
+        }
+
         .loader-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: var(--color-earth);
+            background: #D4C5B3;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 10000;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
 
-        .loader-wrapper.hidden {
+        .loader-wrapper.fade-out {
             opacity: 0;
-            visibility: hidden;
+            pointer-events: none;
         }
 
         .loader-content {
@@ -110,19 +87,40 @@
         }
 
         .loader-text {
-            font-family: 'Merriweather', serif;
-            font-size: 2rem;
-            color: var(--color-accent);
-            margin-bottom: 30px;
-            animation: pulse 2s ease-in-out infinite;
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #3A2D25;
+            margin-bottom: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 3px solid #B8704D;
+            width: 0;
+            animation: typing 2s steps(22) forwards, blink 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
         }
 
         .loader-bar {
             width: 200px;
-            height: 3px;
-            background: rgba(255, 99, 71, 0.2);
-            position: relative;
+            height: 4px;
+            background: #EAE4DC;
+            border-radius: 2px;
             overflow: hidden;
+            position: relative;
         }
 
         .loader-progress {
@@ -130,341 +128,213 @@
             top: 0;
             left: 0;
             height: 100%;
-            background: var(--color-accent);
-            width: 0%;
+            width: 0;
+            background: linear-gradient(90deg, #B8704D, #996A54);
             animation: loading 2s ease-in-out forwards;
         }
 
         @keyframes loading {
-            to { width: 100%; }
+            0% { width: 0; }
+            100% { width: 100%; }
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* ====== CURSOR CUSTOM ====== */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--color-accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.2s ease, border-color 0.3s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(255, 99, 71, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.4s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-            border-color: var(--color-calm);
-        }
-
-        .cursor-follower.hover {
-            transform: scale(1.5);
-        }
-
-        /* ====== TAPE DECORATIONS (Collage Style) ====== */
         .tape {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.6);
+            position: fixed;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+            z-index: 1;
             pointer-events: none;
-            z-index: 10;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .tape::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 2px,
-                rgba(255, 255, 255, 0.3) 2px,
-                rgba(255, 255, 255, 0.3) 4px
-            );
         }
 
         .tape-1 {
-            width: 120px;
-            height: 35px;
-            top: 15%;
-            left: 8%;
-            transform: rotate(-8deg);
+            width: 150px;
+            height: 30px;
+            top: 10%;
+            right: 5%;
+            transform: rotate(15deg);
         }
 
         .tape-2 {
-            width: 80px;
+            width: 120px;
             height: 30px;
-            top: 45%;
-            right: 5%;
-            transform: rotate(12deg);
+            bottom: 15%;
+            left: 3%;
+            transform: rotate(-10deg);
         }
 
         .tape-3 {
             width: 100px;
-            height: 32px;
-            bottom: 25%;
-            left: 12%;
-            transform: rotate(-15deg);
+            height: 30px;
+            top: 50%;
+            left: 10%;
+            transform: rotate(25deg);
         }
 
-        /* Tipografía */
-        h1, h2, h3, h4 {
-            font-family: 'Merriweather', serif;
-            line-height: 1.2;
+        .tape-top {
+            position: absolute;
+            width: 100px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+            top: -12px;
+            right: 20%;
+            transform: rotate(-8deg);
+            z-index: 2;
         }
 
-        /* Contenedor principal */
         .main-wrapper {
-            padding: 20px;
             position: relative;
+            z-index: 2;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            position: relative;
+            padding: 20px;
         }
 
-        /* Hero Section */
         .hero {
             text-align: center;
-            padding: 100px 20px 60px;
+            padding: 80px 20px 60px;
             position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            background: radial-gradient(circle at 50% 50%, var(--color-accent) 0%, transparent 70%);
-            animation: breathe 4s ease-in-out infinite;
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); opacity: 0.05; }
-            50% { transform: scale(1.1); opacity: 0.08; }
+            margin-bottom: 40px;
         }
 
         .hero h1 {
-            font-size: clamp(2.2rem, 5.5vw, 4rem);
-            margin-bottom: 20px;
-            color: var(--color-earth);
-            text-shadow: 3px 3px 0px rgba(200, 90, 60, 0.12);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 25px;
+            color: #3A2D25;
             position: relative;
-            font-weight: 900;
-            letter-spacing: -2px;
-            line-height: 1.1;
             opacity: 0;
-        }
-
-        .hero h1.typing {
-            opacity: 1;
-        }
-
-        .hero h1 .typing-cursor {
-            display: inline-block;
-            width: 3px;
-            height: 1.1em;
-            background-color: var(--color-rust);
-            margin-left: 3px;
-            animation: blink 0.8s infinite;
-            vertical-align: middle;
-        }
-
-        @keyframes blink {
-            0%, 49% { opacity: 1; }
-            50%, 100% { opacity: 0; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            animation: fadeInUp 0.8s ease-out 2.5s forwards;
         }
 
         .hero h1 .highlight {
-            color: var(--color-rust);
+            color: #B8704D;
+            position: relative;
+        }
+
+        .hero h2 {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 700;
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: #3A2D25;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.3;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 3s forwards;
+        }
+
+        .hero h2 .underlined {
             position: relative;
             display: inline-block;
         }
 
-        .hero h1 .highlight::after {
+        .hero h2 .underlined::after {
             content: '';
             position: absolute;
-            bottom: 5px;
+            bottom: -8px;
             left: 0;
-            right: 0;
-            height: 10px;
-            background: rgba(200, 90, 60, 0.15);
-            z-index: -1;
-            transform: skewY(-1deg);
-        }
-
-        .hero h1::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 70%;
-            height: 4px;
-            background: var(--color-rust);
+            width: 0;
+            height: 6px;
+            background: #B8704D;
             clip-path: polygon(
-                0% 0%, 5% 50%, 10% 0%, 15% 50%, 20% 0%, 25% 50%, 
-                30% 0%, 35% 50%, 40% 0%, 45% 50%, 50% 0%, 55% 50%, 
-                60% 0%, 65% 50%, 70% 0%, 75% 50%, 80% 0%, 85% 50%, 
-                90% 0%, 95% 50%, 100% 0%, 100% 100%, 0% 100%
+                0% 20%, 2% 80%, 5% 30%, 8% 70%, 12% 40%, 15% 60%, 
+                18% 35%, 22% 75%, 25% 45%, 28% 65%, 32% 50%, 35% 70%,
+                38% 40%, 42% 80%, 45% 30%, 48% 60%, 52% 45%, 55% 75%,
+                58% 35%, 62% 70%, 65% 50%, 68% 80%, 72% 40%, 75% 65%,
+                78% 45%, 82% 75%, 85% 35%, 88% 70%, 92% 50%, 95% 80%,
+                98% 40%, 100% 60%, 100% 100%, 0% 100%
             );
-            animation: waveLine 3s ease-in-out infinite;
+            animation: underlineGrow 1.2s ease-out 0.8s forwards, 
+                       underlinePulse 2.5s ease-in-out 2.1s infinite;
         }
 
-        @keyframes waveLine {
-            0%, 100% {
-                transform: translateX(-50%) scaleX(1);
-                opacity: 1;
+        @keyframes underlineGrow {
+            0% {
+                width: 0;
             }
-            25% {
-                transform: translateX(-50%) scaleX(1.05) translateY(-2px);
-                opacity: 0.9;
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes underlinePulse {
+            0%, 100% {
+                transform: scaleY(1) translateY(0);
+                opacity: 1;
             }
             50% {
-                transform: translateX(-50%) scaleX(0.95) translateY(2px);
-                opacity: 1;
-            }
-            75% {
-                transform: translateX(-50%) scaleX(1.02) translateY(-1px);
-                opacity: 0.95;
+                transform: scaleY(1.4) translateY(-1px);
+                opacity: 0.85;
             }
         }
 
-        .hero h2 {
-            font-size: clamp(1.1rem, 2.8vw, 1.5rem);
-            font-weight: 400;
-            color: var(--color-calm);
-            margin-top: 40px;
+        .hero .subtitle {
             font-family: 'Inter', sans-serif;
-            animation: fadeInUp 1s ease-out 0.6s both;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            font-weight: 400;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #657063;
+            max-width: 700px;
+            margin: 20px auto 0;
+            line-height: 1.6;
+            transition: opacity 0.3s ease, height 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 3.5s forwards;
         }
 
-        .hero h2 strong {
-            font-weight: 700;
-            color: var(--color-earth);
+        .hero .subtitle strong {
+            color: #5A6F5F;
         }
 
-        /* Quiz Container con tape decoration */
+        .hero.minimal .subtitle {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+        }
+
         .quiz-container {
-            background: linear-gradient(135deg, var(--color-off-white) 0%, #e8e4dc 100%);
-            padding: 50px;
-            margin: 60px auto;
+            background: #F5F1E8;
+            border-radius: 8px;
+            padding: 50px 40px;
+            margin-bottom: 60px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
             position: relative;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transform: scale(0.95);
+            animation: zoomIn 0.6s ease-out 4s forwards;
             clip-path: polygon(
-                0% 2%, 2% 0%, 5% 1%, 8% 0%, 12% 2%, 15% 0%, 
-                18% 1%, 22% 0%, 25% 2%, 28% 0%, 32% 1%, 35% 0%, 
-                38% 2%, 42% 0%, 45% 1%, 48% 0%, 52% 2%, 55% 0%, 
-                58% 1%, 62% 0%, 65% 2%, 68% 0%, 72% 1%, 75% 0%, 
-                78% 2%, 82% 0%, 85% 1%, 88% 0%, 92% 2%, 95% 0%, 
-                98% 1%, 100% 0%, 100% 98%, 98% 100%, 95% 99%, 
-                92% 100%, 88% 98%, 85% 100%, 82% 99%, 78% 100%, 
-                75% 98%, 72% 100%, 68% 99%, 65% 100%, 62% 98%, 
-                58% 100%, 55% 99%, 52% 100%, 48% 98%, 45% 100%, 
-                42% 99%, 38% 100%, 35% 98%, 32% 100%, 28% 99%, 
-                25% 100%, 22% 98%, 18% 100%, 15% 99%, 12% 100%, 
-                8% 98%, 5% 100%, 2% 99%, 0% 100%
-            );
-            z-index: 1;
-            animation: fadeInUp 1s ease-out 0.9s both;
-            transform-style: preserve-3d;
-            transition: transform 0.3s ease;
-        }
-
-        .quiz-container:hover {
-            transform: translateY(-5px);
-        }
-
-        /* Tape decoration on quiz container */
-        .quiz-container .tape-top {
-            position: absolute;
-            top: -15px;
-            right: 15%;
-            width: 150px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.7);
-            transform: rotate(-3deg);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-            z-index: 20;
-        }
-
-        .quiz-container .tape-top::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent,
-                transparent 3px,
-                rgba(200, 90, 60, 0.1) 3px,
-                rgba(200, 90, 60, 0.1) 6px
+                0% 2%, 2% 0%, 5% 2%, 8% 0%, 12% 1%, 15% 0%, 
+                20% 2%, 25% 0%, 30% 1%, 35% 0%, 40% 2%, 45% 0%, 
+                50% 1%, 55% 0%, 60% 2%, 65% 0%, 70% 1%, 75% 0%, 
+                80% 2%, 85% 0%, 88% 1%, 92% 0%, 95% 2%, 98% 0%, 
+                100% 1%, 100% 98%, 98% 100%, 95% 98%, 92% 100%, 
+                88% 99%, 85% 100%, 80% 98%, 75% 100%, 70% 99%, 
+                65% 100%, 60% 98%, 55% 100%, 50% 99%, 45% 100%, 
+                40% 98%, 35% 100%, 30% 99%, 25% 100%, 20% 98%, 
+                15% 100%, 12% 99%, 8% 100%, 5% 98%, 2% 100%, 0% 99%
             );
         }
 
-        .quiz-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(58, 45, 37, 0.06) 19px, rgba(58, 45, 37, 0.06) 20px),
-                repeating-linear-gradient(90deg, transparent, transparent 19px, rgba(58, 45, 37, 0.06) 19px, rgba(58, 45, 37, 0.06) 20px);
-            opacity: 0.5;
-            pointer-events: none;
+        @keyframes zoomIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .quiz-intro {
             text-align: center;
-            margin-bottom: 30px;
-            position: relative;
         }
 
         .quiz-intro h3 {
-            font-size: 2rem;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
             margin-bottom: 20px;
-            color: var(--color-earth);
+            color: #3A2D25;
             position: relative;
             display: inline-block;
         }
@@ -474,81 +344,81 @@
             position: absolute;
             bottom: -8px;
             left: 0;
-            right: 0;
+            width: 100%;
             height: 3px;
-            background: var(--color-rust);
-            transform: scaleX(0);
-            animation: expandLine 0.8s ease-out 1.2s forwards;
-        }
-
-        @keyframes expandLine {
-            to { transform: scaleX(1); }
+            background: #B8704D;
         }
 
         .quiz-intro p {
             font-size: 1.1rem;
-            color: var(--color-calm);
-            margin-bottom: 30px;
-            line-height: 1.8;
-            max-width: 600px;
+            color: #657063;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .quiz-intro p strong {
+            font-weight: 700;
+            color: #3A2D25;
+        }
+
+        .quiz-intro .cta-text,
+        .quiz-reminder {
+            font-size: 1rem;
+            color: #7A8A7F;
+            margin-bottom: 35px;
+        }
+
+        .quiz-reminder {
+            text-align: center;
+            margin-bottom: 25px;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #7A8A7F;
+        }
+
+        .disclaimer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #999;
+            margin-top: 15px;
+            line-height: 1.4;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* Botón CTA principal */
-        .cta-button {
-            background: var(--color-rust);
-            color: white;
-            border: none;
+        .disclaimer a {
+            color: #B8704D;
+            text-decoration: underline;
+        }
+
+        .start-button {
+            background: #B8704D;
+            color: #FFFFFF;
+            border: 3px solid #3A2D25;
             padding: 18px 45px;
             font-size: 1.15rem;
             font-weight: 700;
+            border-radius: 6px;
             cursor: none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 5px 5px 0px var(--color-earth);
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0 #3A2D25;
             font-family: 'Inter', sans-serif;
-            position: relative;
-            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+        .start-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #3A2D25;
+            background: #996A54;
         }
 
-        .cta-button:hover::before {
-            width: 300px;
-            height: 300px;
+        .start-button:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0 0 0 #3A2D25;
         }
 
-        .cta-button:hover {
-            background: var(--color-young-rust);
-            transform: translate(2px, 2px) scale(1.03);
-            box-shadow: 3px 3px 0px var(--color-earth);
-            letter-spacing: 3px;
-        }
-
-        .cta-button:active {
-            transform: translate(5px, 5px) scale(0.98);
-            box-shadow: 0px 0px 0px var(--color-earth);
-        }
-
-        .cta-button span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Quiz activo */
         .quiz-active {
             display: none;
         }
@@ -557,167 +427,151 @@
             display: block;
         }
 
-        .question-container {
-            margin-bottom: 30px;
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: #E5DFD5;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            border: 2px solid #3A2D25;
         }
 
-        .question-number {
-            color: var(--color-rust);
-            font-weight: 600;
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #B8704D, #5A6F5F);
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .question-count {
+            text-align: center;
             font-size: 0.9rem;
+            color: #B8704D;
+            font-weight: 600;
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .question-text {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--color-earth);
+        .question-container {
+            margin-bottom: 40px;
+        }
+
+        .question-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 30px;
+            color: #3A2D25;
+            text-align: center;
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
         }
 
         .option {
-            background: white;
-            padding: 22px;
-            border: 3px solid transparent;
+            background: #FFFFFF;
+            border: 3px solid #E5DFD5;
+            padding: 20px 25px;
+            border-radius: 6px;
             cursor: none;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: #3A2D25;
             position: relative;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .option::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 5px;
-            background: linear-gradient(180deg, var(--color-rust), var(--color-calm));
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transform: translateY(20px);
+            animation: cascadeIn 0.5s ease-out forwards;
         }
 
-        .option::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(84, 121, 91, 0.08);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
+        .option:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .option:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .option:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .option:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes cascadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .option:hover {
-            border-color: var(--color-calm);
-            transform: translateX(8px) scale(1.01);
-            box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.15);
-        }
-
-        .option:hover::after {
-            width: 500px;
-            height: 500px;
+            border-color: #5A6F5F;
+            background: #F5F1E8;
+            transform: translateX(8px);
+            box-shadow: -4px 4px 0 rgba(58, 45, 37, 0.1);
         }
 
         .option.selected {
-            border-color: var(--color-rust);
-            background: linear-gradient(135deg, #fff5f3 0%, #ffe9e5 100%);
+            border-color: #3A2D25;
+            background: #E8DFD4;
             font-weight: 600;
-            transform: translateX(12px) scale(1.02);
-            box-shadow: 8px 8px 20px rgba(200, 90, 60, 0.2);
+            box-shadow: -4px 4px 0 rgba(58, 45, 37, 0.2);
         }
 
-        .option.selected::before {
-            opacity: 1;
-        }
-
-        .option span {
-            position: relative;
-            z-index: 1;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .option:hover span {
-            transform: translateX(5px);
-        }
-
-        .quiz-navigation {
+        .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 40px;
             gap: 15px;
         }
 
         .nav-button {
-            background: var(--color-calm);
-            color: white;
-            border: none;
-            padding: 12px 30px;
+            padding: 14px 35px;
+            border-radius: 6px;
             font-size: 1rem;
             font-weight: 600;
             cursor: none;
             transition: all 0.3s ease;
+            border: 3px solid #3A2D25;
             font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .nav-button:hover {
-            background: #476749;
-            transform: translateY(-2px);
+        .nav-button.prev {
+            background: #E5DFD5;
+            color: #3A2D25;
+            box-shadow: 4px 4px 0 #3A2D25;
+        }
+
+        .nav-button.prev:hover:not(:disabled) {
+            background: #D4C5B3;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #3A2D25;
+        }
+
+        .nav-button.next {
+            background: #B8704D;
+            color: #FFFFFF;
+            box-shadow: 4px 4px 0 #3A2D25;
+        }
+
+        .nav-button.next:hover:not(:disabled) {
+            background: #996A54;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #3A2D25;
         }
 
         .nav-button:disabled {
-            background: #ccc;
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 10px;
-            background: rgba(58, 45, 37, 0.15);
-            margin-bottom: 35px;
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-rust), var(--color-calm));
-            transition: width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-            border-radius: 10px;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Email Form */
         .email-form {
             display: none;
             text-align: center;
@@ -728,294 +582,263 @@
         }
 
         .email-form h3 {
-            font-size: 1.8rem;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
             margin-bottom: 20px;
-            color: var(--color-earth);
+            color: #3A2D25;
         }
 
         .email-form p {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            color: var(--color-calm);
+            font-size: 1.05rem;
+            color: #657063;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
         .email-input {
             width: 100%;
-            max-width: 400px;
-            padding: 15px;
+            max-width: 450px;
+            padding: 16px 20px;
             font-size: 1rem;
-            border: 2px solid var(--color-calm);
+            border: 3px solid #3A2D25;
+            border-radius: 6px;
             margin-bottom: 20px;
             font-family: 'Inter', sans-serif;
-            background: white;
+            transition: all 0.3s ease;
+            background: #FFFFFF;
         }
 
         .email-input:focus {
             outline: none;
-            border-color: var(--color-rust);
+            border-color: #B8704D;
+            box-shadow: 0 0 0 3px rgba(184, 112, 77, 0.2);
         }
 
-        /* Resultado */
         .result-container {
             display: none;
+            text-align: center;
+            animation: fadeInUp 0.6s ease;
         }
 
         .result-container.show {
             display: block;
         }
 
-        .result-header {
-            text-align: center;
-            margin-bottom: 40px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-badge {
+            display: inline-block;
+            background: #5A6F5F;
+            color: #FFFFFF;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+            border: 2px solid #3A2D25;
         }
 
         .result-title {
-            font-size: 2.3rem;
-            color: var(--color-rust);
-            margin-bottom: 15px;
-        }
-
-        .result-key {
-            font-size: 1.35rem;
-            color: var(--color-earth);
-            font-weight: 600;
-            margin-bottom: 25px;
-        }
-
-        .result-next-step {
-            background: var(--color-calm);
-            color: white;
-            padding: 25px;
-            margin-bottom: 40px;
-            clip-path: polygon(
-                0% 0%, 98% 0%, 100% 2%, 100% 100%, 2% 100%, 0% 98%
-            );
-        }
-
-        .result-next-step h4 {
-            font-size: 1.15rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .result-next-step p {
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-
-        /* CTA Final y Redes Sociales COMPACTAS */
-        .final-cta {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f8f5 100%);
-            padding: 50px 40px 40px;
-            text-align: center;
-            clip-path: polygon(
-                0% 2%, 5% 0%, 10% 2%, 15% 0%, 20% 2%, 25% 0%, 
-                30% 2%, 35% 0%, 40% 2%, 45% 0%, 50% 2%, 55% 0%, 
-                60% 2%, 65% 0%, 70% 2%, 75% 0%, 80% 2%, 85% 0%, 
-                90% 2%, 95% 0%, 100% 2%, 100% 98%, 95% 100%, 
-                90% 98%, 85% 100%, 80% 98%, 75% 100%, 70% 98%, 
-                65% 100%, 60% 98%, 55% 100%, 50% 98%, 45% 100%, 
-                40% 98%, 35% 100%, 30% 98%, 25% 100%, 20% 98%, 
-                15% 100%, 10% 98%, 5% 100%, 0% 98%
-            );
-            position: relative;
-            overflow: hidden;
-        }
-
-        .final-cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(200, 90, 60, 0.04) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .final-cta h3 {
-            font-size: 2.2rem;
-            color: var(--color-rust);
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 0.8s ease-out;
+            color: #B8704D;
         }
 
-        .final-cta > p {
-            font-size: 1.1rem;
-            margin-bottom: 40px;
+        .result-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #3A2D25;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .result-description {
+            font-size: 1.05rem;
+            color: #657063;
+            margin-bottom: 15px;
             line-height: 1.8;
-            max-width: 750px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            position: relative;
-            z-index: 1;
+            text-align: left;
         }
 
-        .final-cta p strong {
-            color: var(--color-rust);
-            font-weight: 700;
+        .social-section {
+            margin-top: 50px;
+            background: #FFFFFF;
+            padding: 40px 30px;
+            border-radius: 8px;
+            border: 3px solid #3A2D25;
         }
 
-        /* Redes Sociales COMPACTAS - Grid horizontal */
+        .social-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            margin-bottom: 25px;
+            color: #3A2D25;
+            text-align: center;
+        }
+
         .social-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            max-width: 650px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 800px;
             margin: 0 auto;
-            position: relative;
-            z-index: 1;
         }
 
         .social-card {
-            background: white;
-            padding: 16px 24px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background: #F5F1E8;
+            border: 3px solid #3A2D25;
+            border-radius: 8px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-            border: 2px solid transparent;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #3A2D25;
             cursor: none;
-            min-width: 140px;
+            font-weight: 700;
+            box-shadow: 4px 4px 0 #3A2D25;
+            opacity: 0;
+            transform: translateY(30px) rotate(-2deg);
+            animation: cardDrop 0.6s ease-out forwards;
         }
 
-        .social-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, var(--social-color), var(--social-color-dark));
-            z-index: 0;
-            transition: transform 0.4s ease;
+        .social-card:nth-child(1) {
+            animation-delay: 0.2s;
         }
 
-        .social-card:hover::before {
-            transform: scale(1.08);
+        .social-card:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .social-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .social-card:nth-child(4) {
+            animation-delay: 0.5s;
+        }
+
+        @keyframes cardDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(30px) rotate(-2deg);
+            }
+            60% {
+                transform: translateY(-5px) rotate(1deg);
+            }
+            80% {
+                transform: translateY(2px) rotate(-0.5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
         }
 
         .social-card:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-color: var(--social-color);
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #3A2D25;
+            background: #E8DFD4;
         }
 
         .social-icon {
             font-size: 1.8rem;
-            position: relative;
-            z-index: 1;
-            transition: transform 0.3s ease;
-        }
-
-        .social-card:hover .social-icon {
-            transform: scale(1.15) rotate(5deg);
         }
 
         .social-name {
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .final-cta {
+            background: #5A6F5F;
+            padding: 50px 30px 45px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 60px;
+            border: 3px solid #3A2D25;
+            clip-path: polygon(
+                0% 3%, 3% 0%, 7% 2%, 12% 0%, 17% 3%, 22% 1%, 
+                27% 3%, 33% 0%, 38% 2%, 43% 0%, 48% 3%, 53% 1%, 
+                58% 3%, 63% 0%, 68% 2%, 73% 0%, 78% 3%, 83% 1%, 
+                88% 3%, 93% 0%, 97% 2%, 100% 0%, 100% 97%, 
+                97% 100%, 93% 98%, 88% 100%, 83% 97%, 78% 99%, 
+                73% 97%, 68% 100%, 63% 98%, 58% 97%, 53% 100%, 
+                48% 98%, 43% 97%, 38% 100%, 33% 98%, 27% 97%, 
+                22% 100%, 17% 98%, 12% 97%, 7% 100%, 3% 98%, 0% 97%
+            );
+        }
+
+        .final-cta h3 {
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            color: #E5DFD5;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: #B8704D;
+            color: #FFFFFF;
+            border: 3px solid #3A2D25;
+            padding: 18px 45px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: none;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0 #3A2D25;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Inter', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: white;
-            position: relative;
-            z-index: 1;
-            transition: letter-spacing 0.3s ease;
         }
 
-        .social-card:hover .social-name {
-            letter-spacing: 2px;
+        .cta-button:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 #3A2D25;
+            background: #996A54;
         }
 
-        /* Colores específicos por red social */
-        .social-card.instagram {
-            --social-color: #E1306C;
-            --social-color-dark: #C13584;
-        }
-
-        .social-card.facebook {
-            --social-color: #1877F2;
-            --social-color-dark: #0d5dbf;
-        }
-
-        .social-card.substack {
-            --social-color: #FF6719;
-            --social-color-dark: #e05510;
-        }
-
-        .social-card.youtube {
-            --social-color: #FF0000;
-            --social-color-dark: #cc0000;
-        }
-
-        /* Efecto de brillo en hover */
-        .social-card::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, transparent 70%);
-            transition: transform 0.5s ease;
-            z-index: 0;
-        }
-
-        .social-card:hover::after {
-            transform: translate(-50%, -50%) scale(1.5);
-        }
-
-        /* Hidden class */
         .hidden {
-            display: none !important;
+            display: none;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            html, body {
+            body {
                 cursor: auto;
             }
 
-            .cursor, .cursor-follower {
-                display: none;
-            }
-
-            .tape {
-                display: none;
-            }
-
-            .quiz-container {
-                padding: 30px 20px;
-            }
-
-            .quiz-container .tape-top {
+            .custom-cursor {
                 display: none;
             }
 
             .hero {
-                padding: 60px 20px 40px;
+                padding: 60px 15px 40px;
             }
 
-            .hero h1 {
-                font-size: 2rem;
-                letter-spacing: -1px;
+            .quiz-container {
+                padding: 35px 25px;
             }
 
-            .quiz-navigation {
+            .nav-buttons {
                 flex-direction: column;
             }
 
@@ -1024,58 +847,18 @@
             }
 
             .social-grid {
-                flex-direction: column;
-                width: 100%;
-                max-width: 100%;
-            }
-
-            .social-card {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-                cursor: pointer;
+                grid-template-columns: 1fr;
             }
 
             .final-cta {
                 padding: 40px 25px 35px;
             }
-
-            .cta-button {
-                padding: 16px 35px;
-                font-size: 1.05rem;
-                cursor: pointer;
-            }
-
-            .option {
-                cursor: pointer;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.7rem;
-            }
-
-            .quiz-intro h3 {
-                font-size: 1.6rem;
-            }
-
-            .result-title {
-                font-size: 1.9rem;
-            }
-
-            .social-icon {
-                font-size: 1.5rem;
-            }
-
-            .social-name {
-                font-size: 0.85rem;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- Loader -->
+    <div class="custom-cursor" id="customCursor"></div>
+
     <div class="loader-wrapper" id="loader">
         <div class="loader-content">
             <div class="loader-text">Burnout (in)visible</div>
@@ -1085,281 +868,212 @@
         </div>
     </div>
 
-    <!-- Cursor Custom -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursorFollower"></div>
-
-    <!-- Tape Decorations (Collage Style) -->
     <div class="tape tape-1"></div>
     <div class="tape tape-2"></div>
     <div class="tape tape-3"></div>
 
     <div class="main-wrapper">
         <div class="container">
-            <!-- Hero Section -->
             <header class="hero">
-                <div class="hero-bg"></div>
-                <h1 id="heroTitle"></h1>
-                <h2>Un <strong>experimento colectivo de bienestar</strong> para profesionales +30/35 que buscan autoconocimiento.</h2>
+                <h1>Burnout <span class="highlight">(in)visible</span></h1>
+                <h2><span class="underlined">¿Ya hiciste visible</span> lo que te pasa?</h2>
+                <p class="subtitle">Un <strong>experimento colectivo de bienestar</strong> para profesionales +30/35 que buscan autoconocimiento.</p>
             </header>
 
-            <!-- Quiz Container -->
             <main class="quiz-container">
-                <!-- Tape decoration -->
                 <div class="tape-top"></div>
 
-                <!-- Intro del Quiz -->
                 <section class="quiz-intro" id="quizIntro">
                     <h3>Descubrí tu perfil de burnout</h3>
-                    <p>Respondé 6 preguntas simples y descubrí cuál es tu patrón de agotamiento. Este conocimiento es el primer paso para recuperar tu bienestar.</p>
-                    <button class="cta-button" id="startQuizBtn" aria-label="Comenzar el quiz de burnout"><span>Empezar Quiz</span></button>
+                    <p>Respondé 6 preguntas simples y descubrí cuál es tu patrón de agotamiento. <strong>Este conocimiento es el primer paso para recuperar tu bienestar.</strong></p>
+                    <p class="cta-text">No hay respuestas correctas o incorrectas. Elegí la opción que más se asemeje a tu realidad.</p>
+                    <button class="start-button" id="startQuizBtn">Empezar Quiz</button>
                 </section>
 
-                <!-- Quiz Activo -->
-                <div class="quiz-active" id="quizActive" role="main">
-                    <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-fill" id="progressBar"></div>
+                <section class="quiz-active" id="quizActive">
+                    <div class="question-count" id="questionCount"></div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
                     </div>
-
-                    <div class="question-container" id="questionContainer">
-                        <!-- Las preguntas se cargan dinámicamente -->
+                    <p class="quiz-reminder">No hay respuestas correctas o incorrectas. Elegí la opción que más se asemeje a tu realidad.</p>
+                    <div class="question-container" id="questionContainer"></div>
+                    <div class="nav-buttons">
+                        <button class="nav-button prev" id="prevBtn">← Anterior</button>
+                        <button class="nav-button next" id="nextBtn">Siguiente →</button>
                     </div>
+                </section>
 
-                    <nav class="quiz-navigation">
-                        <button class="nav-button" id="prevBtn" disabled aria-label="Pregunta anterior">Anterior</button>
-                        <button class="nav-button" id="nextBtn" disabled aria-label="Siguiente pregunta">Siguiente</button>
-                    </nav>
-                </div>
-
-                <!-- Formulario de Email -->
                 <section class="email-form" id="emailForm">
                     <h3>¡Ya casi!</h3>
                     <p>Ingresá tu email para descubrir tu perfil de burnout y acceder a recomendaciones personalizadas.</p>
-                    <input type="email" class="email-input" id="emailInput" placeholder="tu@email.com" required aria-label="Tu dirección de email">
-                    <button class="cta-button" id="submitEmailBtn" aria-label="Ver mi resultado"><span>Ver mi resultado</span></button>
+                    <input type="email" class="email-input" id="emailInput" placeholder="tu@email.com" required>
+                    <p class="disclaimer">
+                        <strong>Importante:</strong> Este quiz es una herramienta lúdica de autoconocimiento y no constituye un diagnóstico médico profesional. Al compartir tu email, aceptás recibir comunicaciones personalizadas según tu perfil. Respetamos tu privacidad y podés darte de baja en cualquier momento. 
+                        <a href="#" target="_blank">Ver política de privacidad</a>
+                    </p>
+                    <button class="start-button" id="submitEmailBtn">Ver mi resultado</button>
                 </section>
 
-                <!-- Resultado -->
                 <section class="result-container" id="resultContainer">
-                    <div class="result-header">
-                        <h2 class="result-title" id="resultTitle"></h2>
-                        <p class="result-key" id="resultKey"></p>
-                    </div>
+                    <div class="result-badge">TU PERFIL</div>
+                    <h3 class="result-title" id="resultTitle"></h3>
+                    <p class="result-subtitle" id="resultSubtitle"></p>
+                    <p class="result-description" id="resultDescription"></p>
 
-                    <aside class="result-next-step">
-                        <h4>Tu próximo paso:</h4>
-                        <p id="resultNextStep"></p>
-                    </aside>
-
-                    <div class="final-cta">
-                        <h3>¡Basta de buscar soluciones dispersas!</h3>
-                        <p>Ya hiciste visible tu problema. Ahora, <strong>@burnoutinvisible</strong> te invita a ser parte de la única comunidad centralizada donde convertimos la experiencia personal en <strong>conocimiento útil para todos</strong>. Entrá y descubrí qué le sirvió a otros profesionales +30/35 que están atravesando exactamente lo mismo que vos.</p>
-                        
-                        <nav class="social-grid" aria-label="Redes sociales de Burnout Invisible">
-                            <a href="https://instagram.com/burnoutinvisible" class="social-card instagram" target="_blank" rel="noopener noreferrer" aria-label="Síguenos en Instagram">
+                    <div class="social-section">
+                        <h3 class="social-title">¡Basta de buscar soluciones dispersas!</h3>
+                        <p style="margin-bottom: 25px; color: #657063; line-height: 1.7;">
+                            Ya hiciste visible tu problema. Ahora, <strong>@burnoutinvisible</strong> te invita a ser parte de la única comunidad centralizada en Argentina donde convertimos la experiencia personal en <strong style="color: #B8704D;">conocimiento útil para todos.</strong>
+                            <br><br>
+                            Dejá de sentir que estás sol@ en la urgencia, la niebla o la fatiga. Entrá y descubrí qué le sirvió a otros profesionales +30/35 que están atravesando exactamente lo mismo que vos.
+                        </p>
+                        <div class="social-grid">
+                            <a href="#" class="social-card">
                                 <span class="social-icon">📱</span>
-                                <span class="social-name">Instagram</span>
+                                <span class="social-name">INSTAGRAM</span>
                             </a>
-                            <a href="https://facebook.com/burnoutinvisible" class="social-card facebook" target="_blank" rel="noopener noreferrer" aria-label="Síguenos en Facebook">
+                            <a href="#" class="social-card">
                                 <span class="social-icon">👥</span>
-                                <span class="social-name">Facebook</span>
+                                <span class="social-name">FACEBOOK</span>
                             </a>
-                            <a href="https://burnoutinvisible.substack.com" class="social-card substack" target="_blank" rel="noopener noreferrer" aria-label="Suscríbete a nuestro Substack">
-                                <span class="social-icon">✉️</span>
-                                <span class="social-name">Substack</span>
+                            <a href="#" class="social-card">
+                                <span class="social-icon">📧</span>
+                                <span class="social-name">SUBSTACK</span>
                             </a>
-                            <a href="https://youtube.com/@burnoutinvisible" class="social-card youtube" target="_blank" rel="noopener noreferrer" aria-label="Visita nuestro canal de YouTube">
-                                <span class="social-icon">📺</span>
-                                <span class="social-name">YouTube</span>
+                            <a href="#" class="social-card">
+                                <span class="social-icon">🎥</span>
+                                <span class="social-name">YOUTUBE</span>
                             </a>
-                        </nav>
+                        </div>
                     </div>
                 </section>
             </main>
+
+            <section class="final-cta">
+                <h3>¿Querés profundizar?</h3>
+                <p>Unite al podcast donde compartimos experiencias reales de otros profesionales como vos.</p>
+                <a href="#" class="cta-button">Escuchar podcast</a>
+            </section>
         </div>
     </div>
 
     <script>
-        // ====== TYPING EFFECT ======
-        const heroTitle = document.getElementById('heroTitle');
-        const fullText = 'Burnout <span class="highlight">(in)visible</span>: <br>¿Ya hiciste visible tu problema?';
-        let charIndex = 0;
-        let currentHTML = '';
-        let isInsideTag = false;
-        let tagBuffer = '';
+        const cursor = document.getElementById('customCursor');
+        const interactiveElements = document.querySelectorAll('button, .option, .social-card, a, input');
 
-        function typeWriter() {
-            if (charIndex < fullText.length) {
-                const char = fullText[charIndex];
-                
-                // Detectar si entramos a un tag HTML
-                if (char === '<') {
-                    isInsideTag = true;
-                    tagBuffer = '<';
-                } else if (char === '>' && isInsideTag) {
-                    isInsideTag = false;
-                    tagBuffer += '>';
-                    currentHTML += tagBuffer;
-                    tagBuffer = '';
-                } else if (isInsideTag) {
-                    tagBuffer += char;
-                } else {
-                    currentHTML += char;
-                }
-                
-                heroTitle.innerHTML = currentHTML + '<span class="typing-cursor"></span>';
-                heroTitle.classList.add('typing');
-                charIndex++;
-                
-                // Velocidad variable para más naturalidad
-                const speed = char === ' ' ? 50 : (Math.random() * 50 + 30);
-                setTimeout(typeWriter, speed);
-            } else {
-                // Remover cursor después de terminar
-                setTimeout(() => {
-                    heroTitle.innerHTML = currentHTML;
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('fade-out');
+                setTimeout(function() {
+                    document.getElementById('loader').style.display = 'none';
                 }, 500);
-            }
-        }
-
-        // ====== LOADER ======
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-                // Iniciar typing después del loader
-                setTimeout(typeWriter, 300);
             }, 2000);
         });
 
-        // ====== CURSOR CUSTOM ======
-        const cursor = document.getElementById('cursor');
-        const cursorFollower = document.getElementById('cursorFollower');
-        
-        let mouseX = 0, mouseY = 0;
-        let followerX = 0, followerY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            
-            cursor.style.left = mouseX + 'px';
-            cursor.style.top = mouseY + 'px';
-        });
-
-        // Smooth follower animation
-        function animateFollower() {
-            const distX = mouseX - followerX;
-            const distY = mouseY - followerY;
-            
-            followerX += distX * 0.1;
-            followerY += distY * 0.1;
-            
-            cursorFollower.style.left = followerX + 'px';
-            cursorFollower.style.top = followerY + 'px';
-            
-            requestAnimationFrame(animateFollower);
-        }
-        animateFollower();
-
-        // Hover effects
-        function addHoverListeners() {
-            document.querySelectorAll('.cta-button, .option, .social-card, .nav-button').forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.classList.add('hover');
-                    cursorFollower.classList.add('hover');
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    cursor.classList.remove('hover');
-                    cursorFollower.classList.remove('hover');
-                });
-            });
-        }
-        addHoverListeners();
-
-        // ====== QUIZ LOGIC ======
-        // Datos del Quiz
         const quizData = [
             {
                 question: "¿Cómo percibís tus tareas diarias al final de la jornada?",
                 options: [
-                    { text: "Termino la mayoría, pero las hago con frialdad o distancia.", profile: "A" },
-                    { text: "Me frustro porque mi foco no alcanza para terminar lo que me propuse.", profile: "N" },
-                    { text: "Me siento física y mentalmente exhausto/a.", profile: "D" }
+                    { text: "Termino la mayoría, pero las hago con frialdad o distancia; solo por cumplir y sacármelas de encima.", value: "A" },
+                    { text: "Me frustro porque mi foco no alcanza para terminar lo que me propuse, sintiendo que no logré nada valioso.", value: "B" },
+                    { text: "Me siento física y mentalmente exhausto/a, sin energía residual para nada más.", value: "C" },
+                    { text: "Logro terminar lo importante manteniendo cierto equilibrio, aunque requiere esfuerzo consciente.", value: "E" }
                 ]
             },
             {
                 question: "¿Cuál es tu mayor obstáculo cuando te levantás a la mañana?",
                 options: [
-                    { text: "La urgencia de revisar listas o planificar de inmediato.", profile: "A" },
-                    { text: "La sensación de que tengo la mente nublada y me cuesta mucho arrancar.", profile: "N" },
-                    { text: "La fatiga persistente. Siento que me enfrento a una jornada con la batería ya gastada.", profile: "D" }
+                    { text: "La urgencia de revisar listas o planificar de inmediato, sin darme tiempo a otra cosa.", value: "A" },
+                    { text: "La sensación de que tengo la mente nublada y me cuesta mucho arrancar o saber por dónde empezar.", value: "B" },
+                    { text: "La fatiga persistente. Siento que me enfrento a una jornada con la batería ya gastada.", value: "C" },
+                    { text: "Encontrar la motivación, pero generalmente logro activarme después de mi rutina matutina.", value: "E" }
                 ]
             },
             {
-                question: "En momentos de presión, ¿cómo reaccionás ante un error o problema simple?",
+                question: "¿Cómo reaccionás ante un error o problema simple? (en momentos de presión sobre todo)",
                 options: [
-                    { text: "Me irrito rápidamente, y trato de resolver el problema de forma impersonal.", profile: "A" },
-                    { text: "Pierdo el hilo de las ideas, me cuesta encontrar soluciones o siento que mi esfuerzo no vale para nada.", profile: "N" },
-                    { text: "Siento un agotamiento instantáneo y el cuerpo me pide frenar en seco.", profile: "D" }
+                    { text: "Me irrito rápidamente, y trato de resolver el problema de forma impersonal para sacármelo de encima.", value: "A" },
+                    { text: "Pierdo el hilo de las ideas, me cuesta encontrar soluciones o siento que mi esfuerzo no vale para nada.", value: "B" },
+                    { text: "Siento un agotamiento instantáneo y el cuerpo me pide frenar en seco.", value: "C" },
+                    { text: "Me frustro momentáneamente, pero busco estrategias para regularlo y seguir adelante.", value: "E" }
                 ]
             },
             {
-                question: "¿Cómo son tus interacciones sociales después de un día de estrés?",
+                question: "¿Cómo te relacionás después de un día de estrés?",
                 options: [
-                    { text: "Me vuelvo insensible al estado de ánimo de los demás.", profile: "A" },
-                    { text: "Tengo problemas para seguir la conversación o me siento muy distraído.", profile: "N" },
-                    { text: "Prefiero evitar el contacto social por la poca energía que me queda.", profile: "D" }
+                    { text: "Me vuelvo insensible al estado de ánimo de los demás o me cuesta mucho empatizar.", value: "A" },
+                    { text: "Tengo problemas para seguir la conversación o me siento muy distraído para prestar atención a los detalles.", value: "B" },
+                    { text: "Prefiero evitar el contacto social por la poca energía que me queda.", value: "C" },
+                    { text: "Busco conexión genuina con otros, aunque a veces necesito espacios de soledad para recargar.", value: "E" }
                 ]
             },
             {
                 question: "¿Qué palabra describe mejor tu relación con el trabajo/responsabilidades?",
                 options: [
-                    { text: "Desgaste. Siento que me está consumiendo y endureciendo emocionalmente.", profile: "A" },
-                    { text: "Desmotivación. Siento que, a pesar del esfuerzo, no consigo resultados valiosos.", profile: "N" },
-                    { text: "Cansancio. Siento que mi cuerpo y mente están al límite de sus posibilidades.", profile: "D" }
+                    { text: "Desgaste. Siento que me está consumiendo y endureciendo emocionalmente.", value: "A" },
+                    { text: "Desmotivación. Siento que, a pesar del esfuerzo, no consigo resultados valiosos.", value: "B" },
+                    { text: "Cansancio. Siento que mi cuerpo y mente están al límite de sus posibilidades.", value: "C" },
+                    { text: "Compromiso consciente. Busco mantener límites saludables aunque no siempre lo logro.", value: "E" }
                 ]
             },
             {
                 question: "Cuando te sentís estresad@, ¿qué es lo primero que hacés?",
                 options: [
-                    { text: "Respiro hondo para forzar la calma, aunque por dentro sigo con la lista mental corriendo.", profile: "A" },
-                    { text: "Busco algo fácil de hacer para sentir que 'avancé'.", profile: "N" },
-                    { text: "Me detengo. El cuerpo me pide parar la marcha y necesito desconectar de inmediato.", profile: "D" }
+                    { text: "Respiro hondo para forzar la calma, aunque por dentro sigo con la lista mental corriendo.", value: "A" },
+                    { text: "Busco algo fácil de hacer (aunque no prioritario) para sentir que 'avancé' en algo, frustrándome por no hacer lo importante.", value: "B" },
+                    { text: "Me detengo. El cuerpo me pide parar la marcha y necesito desconectar de inmediato.", value: "C" },
+                    { text: "Intento identificar qué me estresa y busco una estrategia específica para manejarlo.", value: "E" }
                 ]
             }
         ];
 
-        // Datos de resultados
-        const resultsData = {
+        const profiles = {
             A: {
-                title: "El/la acelerado/a crónico/a",
-                key: "Tu cerebro no frena solo: estás en modo urgencia.",
-                nextStep: "Dejá de buscar la solución en el 'tiempo libre' y encontrá las micro-prácticas que rompen el ciclo de la urgencia."
+                title: "Acelerad@ crónicamente",
+                subtitle: "Tu cerebro no frena solo: estás en modo urgencia",
+                description: "Tu señal dominante: La ansiedad y la prisa interna. Tu mente está constantemente planificando la próxima tarea, impidiéndote aplicar el freno necesario. Esto te lleva a tratar las tareas y a veces a las personas con frialdad o distancia (despersonalización) para ahorrar energía mental. Próximo paso clave: sería bueno incluir herramientas de gestión de la calma que se integren en tu caos, no que te lo exijan. Dejá de buscar la solución en el 'tiempo libre' y encontrá las micro-prácticas que rompen el ciclo de la urgencia."
             },
-            N: {
+            B: {
                 title: "Nublad@",
-                key: "Navegando en la niebla mental. Te consume la frustración por el bajo logro.",
-                nextStep: "Es momento de acceder a un mapa de rutinas de foco que otros 'Nublados' han comprobado que funcionan para tu perfil específico."
+                subtitle: "Navegando en la niebla mental",
+                description: "Tu señal dominante: El agotamiento cognitivo. El foco te falla, los olvidos son frecuentes, y sentís que tu esfuerzo no se capitaliza en resultados valiosos. La frustración por el bajo logro te consume. Próximo paso clave: sería bueno tener un filtro. Dejar de consumir contenido de productividad disperso que solo aumenta tu niebla. Es momento de acceder a un mapa de rutinas de foco que otros 'Nublados' han comprobado que funcionan para tu perfil específico."
             },
-            D: {
+            C: {
                 title: "Desinflad@",
-                key: "Batería en rojo: agotamiento al límite.",
-                nextStep: "Accedé a un panel de experiencias colectivas para ver qué hábitos de recarga aplicaron otros 'Desinflados/as' para recuperar su energía base."
+                subtitle: "Batería en rojo: agotamiento al límite",
+                description: "Señal dominante: La fatiga física y mental. El cansancio es tu norma, no la excepción, y tu cuerpo te pide desesperadamente detener la marcha. Te sentís al límite de tus posibilidades (agotamiento emocional). Próximo paso clave: La teoría no sirve, necesitás pruebas y acompañamiento. Accedé a un panel de experiencias colectivas para ver qué hábitos de recarga aplicaron otros 'Desinflados/as' para recuperar su energía base."
+            },
+            E: {
+                title: "Equilibrist@",
+                subtitle: "Buscando el balance consciente",
+                description: "Tu señal dominante: La autoconciencia activa. Reconocés tus límites y trabajás para mantener un equilibrio, aunque a veces te cueste. No estás en crisis aguda, pero sabés que el burnout puede aparecer si no seguís cuidándote. Próximo paso clave: Unite a una comunidad que valora la prevención tanto como la recuperación. Te compartimos prácticas de mantenimiento validadas por otros Equilibristas para fortalecer tu resiliencia y seguir protegiendo tu bienestar antes de llegar al límite."
             }
         };
 
-        // Variables del estado del quiz
         let currentQuestion = 0;
         let answers = [];
         let userEmail = '';
 
-        // Elementos del DOM
         const quizIntro = document.getElementById('quizIntro');
         const quizActive = document.getElementById('quizActive');
         const emailForm = document.getElementById('emailForm');
         const resultContainer = document.getElementById('resultContainer');
         const questionContainer = document.getElementById('questionContainer');
+        const questionCount = document.getElementById('questionCount');
         const progressBar = document.getElementById('progressBar');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -1367,84 +1081,59 @@
         const submitEmailBtn = document.getElementById('submitEmailBtn');
         const emailInput = document.getElementById('emailInput');
 
-        // Iniciar quiz
         startQuizBtn.addEventListener('click', () => {
             quizIntro.classList.add('hidden');
             quizActive.classList.add('show');
             loadQuestion();
         });
 
-        // Cargar pregunta
         function loadQuestion() {
             const question = quizData[currentQuestion];
             const progress = ((currentQuestion + 1) / quizData.length) * 100;
             progressBar.style.width = progress + '%';
-            progressBar.parentElement.setAttribute('aria-valuenow', Math.round(progress));
+            questionCount.textContent = `PREGUNTA ${currentQuestion + 1} DE ${quizData.length}`;
 
             questionContainer.innerHTML = `
-                <div class="question-number">Pregunta ${currentQuestion + 1} de ${quizData.length}</div>
-                <div class="question-text">${question.question}</div>
+                <h3 class="question-title">${question.question}</h3>
                 <div class="options">
                     ${question.options.map((option, index) => `
-                        <div class="option" data-profile="${option.profile}" data-index="${index}" role="button" tabindex="0" aria-label="Opción ${index + 1}">
-                            <span>${option.text}</span>
+                        <div class="option" data-value="${option.value}" data-index="${index}">
+                            ${option.text}
                         </div>
                     `).join('')}
                 </div>
             `;
 
-            // Agregar event listeners a las opciones
-            const options = questionContainer.querySelectorAll('.option');
+            const options = document.querySelectorAll('.option');
             options.forEach(option => {
-                option.addEventListener('click', selectOption);
-                
-                // Keyboard accessibility
-                option.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        selectOption(e);
-                    }
+                option.addEventListener('click', function() {
+                    options.forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    answers[currentQuestion] = this.getAttribute('data-value');
+                    nextBtn.disabled = false;
                 });
-                
-                // Hover effect para cursor
+
                 option.addEventListener('mouseenter', () => {
                     cursor.classList.add('hover');
-                    cursorFollower.classList.add('hover');
                 });
-                
                 option.addEventListener('mouseleave', () => {
                     cursor.classList.remove('hover');
-                    cursorFollower.classList.remove('hover');
                 });
-                
-                // Si ya hay una respuesta guardada, marcarla
-                if (answers[currentQuestion] !== undefined) {
-                    const savedIndex = answers[currentQuestion].index;
-                    if (parseInt(option.dataset.index) === savedIndex) {
-                        option.classList.add('selected');
-                    }
-                }
             });
 
-            // Actualizar botones
+            if (answers[currentQuestion]) {
+                const selectedOption = document.querySelector(`.option[data-value="${answers[currentQuestion]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                    nextBtn.disabled = false;
+                }
+            } else {
+                nextBtn.disabled = true;
+            }
+
             prevBtn.disabled = currentQuestion === 0;
-            nextBtn.disabled = answers[currentQuestion] === undefined;
         }
 
-        // Seleccionar opción
-        function selectOption(e) {
-            const options = questionContainer.querySelectorAll('.option');
-            options.forEach(opt => opt.classList.remove('selected'));
-            
-            e.currentTarget.classList.add('selected');
-            
-            const profile = e.currentTarget.dataset.profile;
-            const index = parseInt(e.currentTarget.dataset.index);
-            
-            answers[currentQuestion] = { profile, index };
-            nextBtn.disabled = false;
-        }
-
-        // Navegación
         prevBtn.addEventListener('click', () => {
             if (currentQuestion > 0) {
                 currentQuestion--;
@@ -1457,88 +1146,58 @@
                 currentQuestion++;
                 loadQuestion();
             } else {
-                // Mostrar formulario de email
                 quizActive.classList.remove('show');
                 emailForm.classList.add('show');
             }
         });
 
-        // Submit email y mostrar resultado
         submitEmailBtn.addEventListener('click', () => {
-            const email = emailInput.value.trim();
-            
-            if (!email || !email.includes('@')) {
+            userEmail = emailInput.value;
+            if (userEmail && validateEmail(userEmail)) {
+                calculateResult();
+            } else {
                 alert('Por favor, ingresá un email válido.');
-                return;
-            }
-
-            userEmail = email;
-            
-            // Calcular resultado
-            const result = calculateResult();
-            
-            // Mostrar resultado
-            emailForm.classList.remove('show');
-            displayResult(result);
-        });
-
-        // Permitir submit con Enter en el email
-        emailInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                submitEmailBtn.click();
             }
         });
 
-        // Calcular resultado con lógica de desempate
-        function calculateResult() {
-            const scores = { A: 0, N: 0, D: 0 };
-            
-            // Contar respuestas por perfil
-            answers.forEach(answer => {
-                scores[answer.profile]++;
-            });
-
-            console.log('Scores:', scores); // Para debugging
-
-            // Encontrar el perfil con mayor puntuación
-            let maxScore = Math.max(scores.A, scores.N, scores.D);
-            let winners = [];
-
-            // Identificar todos los perfiles con la puntuación máxima
-            if (scores.A === maxScore) winners.push('A');
-            if (scores.N === maxScore) winners.push('N');
-            if (scores.D === maxScore) winners.push('D');
-
-            // Regla de desempate: priorizar D
-            if (winners.length > 1 && winners.includes('D')) {
-                return 'D';
-            }
-
-            // Si no hay empate o D no está en el empate, devolver el primero
-            return winners[0];
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
         }
 
-        // Mostrar resultado
-        function displayResult(profile) {
-            const result = resultsData[profile];
-            
-            document.getElementById('resultTitle').textContent = result.title;
-            document.getElementById('resultKey').textContent = result.key;
-            document.getElementById('resultNextStep').textContent = result.nextStep;
-            
+        function calculateResult() {
+            const counts = { A: 0, B: 0, C: 0, E: 0 };
+            answers.forEach(answer => {
+                counts[answer]++;
+            });
+
+            const maxProfile = Object.keys(counts).reduce((a, b) => 
+                counts[a] > counts[b] ? a : b
+            );
+
+            const profile = profiles[maxProfile];
+
+            document.getElementById('resultTitle').textContent = profile.title;
+            document.getElementById('resultSubtitle').textContent = profile.subtitle;
+            document.getElementById('resultDescription').textContent = profile.description;
+
+            document.querySelector('.hero').classList.add('minimal');
+
+            emailForm.classList.remove('show');
             resultContainer.classList.add('show');
 
-            // Agregar animación de fade in
-            setTimeout(() => {
-                resultContainer.style.animation = 'fadeInUp 0.8s ease-out';
-            }, 100);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Scroll al resultado
-            setTimeout(() => {
-                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 200);
+            const dataToSend = {
+                email: userEmail,
+                profile: maxProfile,
+                profileName: profile.title,
+                answers: answers,
+                timestamp: new Date().toISOString()
+            };
+
+            console.log('Datos para enviar a plataforma de email:', dataToSend);
         }
     </script>
 </body>
 </html>
-
